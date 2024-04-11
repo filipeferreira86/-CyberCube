@@ -1,0 +1,27 @@
+{
+  "browserData": {
+    "browser": "chrome",
+    "headless": false
+  },
+  "pages": {
+    "homePage": "https://www.saucedemo.com/inventory.html",
+    "itemPage": "https://www.saucedemo.com/inventory-item.html",
+    "cartPage": "https://www.saucedemo.com/cart.html",
+    "checkoutPage": "https://www.saucedemo.com/checkout-step-one.html",
+    "checkoutOverviewPage": "https://www.saucedemo.com/checkout-step-two.html"
+  },
+  "envData": {
+    "url": "https://www.saucedemo.com/",
+    "validLogin": {
+      "username": "standard_user",
+      "password": "secret_sauce"
+    },
+    "invalidLogin": {
+      "username": "abc",
+      "password": "123"
+    },
+    "paymentInformation": "SauceCard #31337",
+    "shippingInformation": "Free Pony Express Delivery!",
+    "tax": 0.08
+  }
+}
