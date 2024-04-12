@@ -1,11 +1,10 @@
 package com.cybcube.models.pages;
 
-import com.cybcube.models.data.Product;
+import com.cybcube.models.data.ui.model.Product;
 import com.cybcube.utils.Container;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -43,7 +42,7 @@ public class CartPage extends Base{
     public void removeItem(int index){
         List<WebElement> el = findList(find(cartList), cartItems);
         el.remove(index);
-        container.addVar("itemList", el);
+        container.setVar("itemList", el);
         click(findList(cartItems).get(index), btnRemoveItem);
     }
 

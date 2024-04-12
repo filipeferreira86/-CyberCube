@@ -1,6 +1,6 @@
 package com.cybcube.models.pages;
 
-import com.cybcube.models.data.Product;
+import com.cybcube.models.data.ui.model.Product;
 import com.cybcube.utils.Container;
 import org.openqa.selenium.By;
 
