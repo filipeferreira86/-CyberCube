@@ -9,18 +9,23 @@ import java.util.List;
 public class PetDriver extends BaseDriver {
 
     private final String PET_ENDPOINT = "pet/";
+    private final String UPDATE_PET_ENDPOINT = PET_ENDPOINT + "%s";
+    private final String GET_PET_ENDPOINT = UPDATE_PET_ENDPOINT;
+    private final String UPLOAD_IMAGE_ENDPOINT = PET_ENDPOINT + "%s/uploadImage";
+    private final String DELETE_PET_ENDPOINT = PET_ENDPOINT + "%s";
+    private final String GET_PET_BY_STATUS_ENDPOINT = PET_ENDPOINT + "findByStatus?status=%s";
     public PetDriver(Container c) {
         super(c.apiConfig, c.getScenario());
     }
 
     public ResponseDriver<AddPetResponse> getPetById(int petId) {
         return new ResponseDriver<>(
-                sendRequest(PET_ENDPOINT + petId, "GET"), AddPetResponse.class);
+                sendRequest(String.format(GET_PET_ENDPOINT,  petId), "GET"), AddPetResponse.class);
     }
 
     public ResponseDriver<AddPetResponse[]> getPetByStatus(String status) {
         return new ResponseDriver<>(
-                sendRequest(PET_ENDPOINT + "findByStatus?status=" + status, "GET"), AddPetResponse[].class);
+                sendRequest(String.format(GET_PET_BY_STATUS_ENDPOINT,  status), "GET"), AddPetResponse[].class);
     }
 
     public ResponseDriver<AddPetResponse> createPet(Object body) {
@@ -36,12 +41,12 @@ public class PetDriver extends BaseDriver {
     public ResponseDriver<ErrorResponse> updatePetWithFormData(int petId, String name, String status) {
         List<String> body = List.of("name", name, "status", status);
         return new ResponseDriver<>(sendMultipartRequest(
-                PET_ENDPOINT + petId, "POST", body), ErrorResponse.class);
+                String.format(UPDATE_PET_ENDPOINT, petId), "POST", body), ErrorResponse.class);
     }
 
     public ResponseDriver<DeletePetResponse> deletePet(int petId) {
         return new ResponseDriver<>(
-                sendRequest(PET_ENDPOINT + petId, "DELETE"),
+                sendRequest(String.format(UPDATE_PET_ENDPOINT, petId), "DELETE"),
                 DeletePetResponse.class);
     }
 

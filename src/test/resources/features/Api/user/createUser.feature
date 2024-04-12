@@ -23,3 +23,21 @@ Feature: Create new users
   Scenario: Create a new user with missing username
     When I create a new user with missing username
     Then the response should be 400
+
+  Scenario: Create 2 new users with array
+      When I create 2 new users with array
+      Then the response should be 200
+        And the users should be created
+
+    Scenario: Create 2 new users with array and one missing data
+      When I create 2 new users with array and one missing data
+      Then the response should be 400
+
+  Scenario: Create 2 new users with List
+    When I create 2 new users with List
+    Then the response should be 200
+    And the users should be created
+
+  Scenario: Create 2 new users with List and one missing data
+    When I create 2 new users with List and one missing data
+    Then the response should be 400

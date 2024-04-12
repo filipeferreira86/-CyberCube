@@ -1,18 +1,18 @@
 package com.cybcube.models.api.request.pets.auxiliar;
 
 public class Category {
-    public int id;
+    public double id;
     public String name;
 
     public Category() {
     }
 
-    public Category(int id, String name) {
+    public Category(double id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public void setId(int id) {
+    public void setId(double id) {
         this.id = id;
     }
 
@@ -20,7 +20,7 @@ public class Category {
         this.name = name;
     }
 
-    public int getId() {
+    public double getId() {
         return id;
     }
 

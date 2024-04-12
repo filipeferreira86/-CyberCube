@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -220,9 +221,10 @@ public class PetStepDefinition{
                 container.getVar("response");
 
         // Check if the pet was deleted
-        assertEquals( response.getResponse().getMessage(), String.valueOf(petId));
-        assertEquals( response.getResponse().getType(), "unknown");
-        assertEquals( response.getResponse().getCode(), 200);
+        assertEquals(String.valueOf(petId), response.getResponse().getMessage());
+        assertNotEquals("", response.getResponse().getType());
+        assertEquals(200, response.getResponse().getCode());
+        assertEquals(petEndpoint.getPetById(petId).getResponseCode(), 404);
     }
 
     @Then("the response should contain the pet data")
@@ -329,6 +331,32 @@ public class PetStepDefinition{
         }
     }
 
+    @Then("the pet should be added to the database")
+    public void thePetShouldBeAddedToTheDatabase() {
+        AddPet addPet = (AddPet) container.getVar("pet");
+        AddPetResponse response = (petEndpoint.getPetById(addPet.getId())).getResponse();
+        assertEquals(addPet.getName(), response.getName());
+        assertEquals(addPet.getStatus(), response.getStatus());
+        assertArrayEquals(addPet.getPhotoUrls(), response.getPhotoUrls());
+        assertEquals(addPet.getCategory().getId(), response.getCategory().getId(), 0.0);
+        assertEquals(addPet.getCategory().getName(), response.getCategory().getName());
+        assertEquals(addPet.getTags()[0].getId(), response.getTags()[0].getId(), 0.0);
+        assertEquals(addPet.getTags()[0].getName(), response.getTags()[0].getName());
+    }
+
+    @Then("database should be updated")
+    public void databaseShouldBeUpdated() {
+        AddPet userRequest = (AddPet)container.getVar("pet");
+        AddPetResponse response = petEndpoint.getPetById(userRequest.getId()).getResponse();
+        assertEquals(userRequest.getName(), response.getName());
+        assertEquals(userRequest.getStatus(), response.getStatus());
+        assertArrayEquals(userRequest.getPhotoUrls(), response.getPhotoUrls());
+        assertEquals(userRequest.getCategory().getId(), response.getCategory().getId(), 0.0);
+        assertEquals(userRequest.getCategory().getName(), response.getCategory().getName());
+        assertEquals(userRequest.getTags()[0].getId(), response.getTags()[0].getId(), 0.0);
+        assertEquals(userRequest.getTags()[0].getName(), response.getTags()[0].getName());
+    }
+
     // Private methods
 
     private List<AddPetResponse> getPetList(AddPetResponse[] addPetResponses,
@@ -338,8 +366,19 @@ public class PetStepDefinition{
                 .orElseThrow(
                         () -> new AssertionError(
                         "Pet with status " + status + " not found")).getName();
-        return  Arrays.stream(addPetResponses).filter(
-                addPetResponseItem -> addPetResponseItem.getName().equals(
-                        petName)).toList();
+        for(AddPetResponse addPetResponse : addPetResponses){
+            // For some reason the API accepts pets without the field name,
+            // so we need to handle it
+            String name;
+            if(addPetResponse.getName() == null)
+                name = "";
+            else
+                name = addPetResponse.getName();
+
+            if(name.equals(petName)){
+                return List.of(addPetResponse);
+            }
+        }
+        return new ArrayList<>();
     }
 }

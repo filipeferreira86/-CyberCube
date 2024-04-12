@@ -8,27 +8,30 @@ import com.cybcube.utils.Container;
 
 public class StoreDriver extends BaseDriver {
 
+    private final String INVENTORY_ENDPOINT = "store/inventory";
+    private final String ORDER_ENDPOINT = "store/order";
+    private final String ORDER_BY_ID_ENDPOINT = ORDER_ENDPOINT+"/%s";
     public StoreDriver(Container container) {
         super(container.apiConfig, container.getScenario());
     }
 
     public ResponseDriver<InventoryResponse> getStoreInventory() {
         return new ResponseDriver<>(sendRequest
-                ("store/inventory", "GET"), InventoryResponse.class);
+                (INVENTORY_ENDPOINT, "GET"), InventoryResponse.class);
     }
 
     public ResponseDriver<OrderResponse> createOrder(Object body) {
         return new ResponseDriver<>(sendRequest
-                ("store/order", "POST", body), OrderResponse.class);
+                (ORDER_ENDPOINT, "POST", body), OrderResponse.class);
     }
     public ResponseDriver<OrderResponse> getOrderById(int orderId) {
         return new ResponseDriver<>(sendRequest
-                ("store/order/" + orderId, "GET"), OrderResponse.class);
+                (String.format(ORDER_BY_ID_ENDPOINT, orderId), "GET"), OrderResponse.class);
     }
 
     public ResponseDriver<DeleteResponse> deleteOrderById(int orderId){
         return new ResponseDriver<>(sendRequest
-                ("store/order/" + orderId, "DELETE"), DeleteResponse.class);
+                (String.format(ORDER_BY_ID_ENDPOINT, orderId), "DELETE"), DeleteResponse.class);
     }
 
 }
