@@ -12,14 +12,12 @@ Feature: Check login User
     Then the response should be 200
       And I should see that the user is logged in
 
-  @run
   Scenario: Check if user with wrong password
       When I check if the user is logged in using a wrong password
       Then the response should be 401
         And the error message should be "Unauthorized"
 
-  @run
   Scenario: Check if user is logged in using the wrong username
       When I check if the user is logged in using a wrong username
       Then the response should be 404
-        And the error message should be "Not Found"
+        And the error message should be "User not found"

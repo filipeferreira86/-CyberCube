@@ -11,6 +11,8 @@ Feature: Update pet
     Then the pet should be updated with the following data:
       | id | name | status |
       | 1  | cat  | sold   |
+      And the response should be 200
+      And database should be updated
 
   Scenario: Update a invalid pet
     When I update the pet with the following data:

@@ -27,13 +27,12 @@ import io.cucumber.junit.Cucumber;
                 "src/test/resources/features/api/user/createUser.feature",
                 "src/test/resources/features/api/user/deleteUser.feature",
                 "src/test/resources/features/api/user/getUserByName.feature",
-                "src/test/resources/features/api/user/login.feature",/*
+                "src/test/resources/features/api/user/login.feature",
                 "src/test/resources/features/api/user/logout.feature",
-                "src/test/resources/features/api/user/updateUser.feature"*/
+                "src/test/resources/features/api/user/updateUser.feature"
         },
         glue = "com.cybcube.steps",
-        snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@run"
+        snippets = CucumberOptions.SnippetType.CAMELCASE
 )
 public class RunnerApi {
 }

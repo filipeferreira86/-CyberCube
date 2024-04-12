@@ -13,5 +13,5 @@ Feature: Delete pet
         And the pet should be deleted
 
   Scenario: Delete a non-existing pet
-      When I delete a non-existing pet
-      Then the response should be 404
+    When I delete a non-existing pet
+    Then the response should be 404

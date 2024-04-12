@@ -8,9 +8,11 @@ Feature: Delete Order
         And the data to create a new order is prepared
         And I send a POST request to add the order
 
+  @run
   Scenario: Delete an order
     When I delete the order
     Then the response should be 200
+      And the order should be deleted
 
     Scenario: Delete an order that does not exist
       Given I have an order that does not exist

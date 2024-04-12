@@ -7,6 +7,7 @@ Feature: Create new order
       And I send a POST request to add the pet
       And the data to create a new order is prepared
 
+    @run
   Scenario: Create new order
     When I create a new order
     Then the response should be 200

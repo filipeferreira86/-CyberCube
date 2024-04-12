@@ -8,7 +8,6 @@ Feature: Get list of pets by status
       | 2  | Ronaldo  | pending   |
       | 3  | Athletic | sold      |
 
-
   Scenario Outline: Get list of pets by status
     When I send a GET request to get the list of pets with the status <status>
     Then the response status be a list of all pets with the status <status>

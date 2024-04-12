@@ -10,7 +10,6 @@ Feature: Get user by username
     Then the response should be 200
       And the user should have the correct data
 
-  @run
     Scenario: Get user by username that doesn't exist
       When I request the user by username that doesnt exist
       Then the response should be 404

@@ -7,6 +7,7 @@ Feature: Add new pet
     When I send a POST request to add the pet
     Then the response should be 200
       And the response should contain the data for the pet
+      And the pet should be added to the database
 
   Scenario: Add a new pet with a missing required field
     Given I have a pet with a missing required field

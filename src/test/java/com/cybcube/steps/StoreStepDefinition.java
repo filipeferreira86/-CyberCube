@@ -11,6 +11,7 @@ import com.cybcube.models.drivers.StoreDriver;
 import com.cybcube.utils.Container;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -110,6 +111,14 @@ public class StoreStepDefinition {
                 container.getVar("response");
 
         assertEquals(200,response.getResponseCode());
+        OrderResponse orderResponse =
+                (storeEndpoint.getOrderById(response.getResponse().getId())).getResponse();
+        assertEquals(response.getResponse().getId(), orderResponse.getId());
+        assertEquals(response.getResponse().getPetId(), orderResponse.getPetId(), 0.0);
+        assertEquals(response.getResponse().getQuantity(), orderResponse.getQuantity());
+        assertEquals(response.getResponse().getShipDate(), orderResponse.getShipDate());
+        assertEquals(response.getResponse().getStatus(), orderResponse.getStatus());
+        assertEquals(response.getResponse().isComplete(), orderResponse.isComplete());
     }
 
     @Then("the order should not be created")
@@ -148,6 +157,13 @@ public class StoreStepDefinition {
         assertEquals(available.get("available"), inventoryResponse.get("available"));
         assertEquals(available.get("pending"), inventoryResponse.get("pending"));
         assertEquals(available.get("sold"), inventoryResponse.get("sold"));
+    }
+
+    @And("the order should be deleted")
+    public void theOrderShouldBeDeleted() {
+        int id = ((OrderRequest)container.getVar("orderRequest")).getId();
+        ResponseDriver<OrderResponse> orderResponse = storeEndpoint.getOrderById(id);
+        assertEquals(404, orderResponse.getResponseCode());
     }
 
     public void afterScenario(Scenario scenario) {
