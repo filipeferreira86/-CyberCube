@@ -1,10 +1,8 @@
 package com.cybcube.models.pages;
 
-import com.cybcube.models.data.Product;
+import com.cybcube.models.data.ui.model.Product;
 import com.cybcube.utils.Container;
 import org.openqa.selenium.By;
-
-import java.util.HashMap;
 
 public class ItemPage extends Base{
 
@@ -24,7 +22,7 @@ public class ItemPage extends Base{
         click(btnAddItem);
 
         // Adding item data to check later
-        container.addVar("item", new Product(0,
+        container.setVar("item", new Product(0,
                 getText(lblItemName),
                 getText(lblItemDescription),
                 getText(lblItemPrice)));

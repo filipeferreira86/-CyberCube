@@ -1,13 +1,12 @@
 package com.cybcube.models.pages;
 
-import com.cybcube.models.data.Product;
+import com.cybcube.models.data.ui.model.Product;
 import com.cybcube.utils.Container;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -54,7 +53,7 @@ public class HomePage extends Base{
         click(itemsList.get(itemNumber - 1), btnAddItem);
 
         // Adding item data to check later
-        container.addVar("item", new Product(itemNumber - 1,
+        container.setVar("item", new Product(itemNumber - 1,
                         getText(itemsList.get(itemNumber - 1), lblItemName),
                         getText(itemsList.get(itemNumber - 1), lblItemDescription),
                         getText(itemsList.get(itemNumber - 1), lblItemPrice)
@@ -75,7 +74,7 @@ public class HomePage extends Base{
                     )
             );
         }
-        container.addVar("items", products);
+        container.setVar("items", products);
     }
 
     public void removeItem(int itemNumber){

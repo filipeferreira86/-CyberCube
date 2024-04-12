@@ -1,10 +1,10 @@
 package com.cybcube.utils;
 
-import com.cybcube.models.api.request.AddPet;
-import com.cybcube.models.api.request.auxiliar.Category;
-import com.cybcube.models.data.ApiConfig;
-import com.cybcube.models.data.Config;
-import com.cybcube.models.data.Login;
+import com.cybcube.models.api.request.pets.AddPet;
+import com.cybcube.models.api.request.pets.auxiliar.Category;
+import com.cybcube.models.data.api.config.ApiConfig;
+import com.cybcube.models.data.ui.config.Config;
+import com.cybcube.models.data.ui.model.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.core.exception.CucumberException;
 import io.cucumber.java.Scenario;
@@ -28,8 +28,7 @@ public class Container {
     public ApiConfig apiConfig;
     public Login login;
     private final boolean headless;
-
-    private final HashMap<String, Object> bag = new HashMap<>();
+    public HashMap<String, Object> bag = new HashMap<>();
     private Scenario scenario;
 
     public Container() throws Exception {
@@ -40,7 +39,7 @@ public class Container {
         }catch (Exception e){
             System.out.println(e.getMessage());
             throw new Exception(e);
-        };
+        }
 
 
         try {
@@ -49,7 +48,7 @@ public class Container {
         }catch (Exception e){
             System.out.println(e.getMessage());
             throw new Exception(e);
-        };
+        }
 
         this.login = new Login();
 
@@ -101,7 +100,7 @@ public class Container {
 
 
 
-    public void addVar(String name, Object item){
+    public void setVar(String name, Object item){
         bag.put(name, item);
     }
 
@@ -143,7 +142,8 @@ public class Container {
     }
 
     public void setScenario(Scenario scenario) {
-        this.scenario = scenario;
+        if(this.scenario == null)
+            this.scenario = scenario;
     }
 
     public Scenario getScenario() {
@@ -160,4 +160,5 @@ public class Container {
                 "available"
         );
     }
+
 }

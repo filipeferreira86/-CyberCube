@@ -1,13 +1,12 @@
 package com.cybcube.models.drivers;
 
-import com.cybcube.models.api.response.*;
+import com.cybcube.models.api.response.pets.*;
 import com.cybcube.utils.Container;
-import io.restassured.response.Response;
 
 import java.io.File;
 import java.util.List;
 
-public class PetDriver extends Base{
+public class PetDriver extends BaseDriver {
 
     private final String PET_ENDPOINT = "pet/";
     public PetDriver(Container c) {
