@@ -8,8 +8,8 @@ import io.cucumber.junit.Cucumber;
 
 @CucumberOptions(
         plugin = {"pretty",
-                "html:target/cucumber-html-report.html",
-                "json:target/cucumber.json"},
+                "html:target/api/cucumber-html-report.html",
+                "json:target/api/cucumber.json"},
         features = {
                 // pets
                 "src/test/resources/features/api/pets/addPictureToPet.feature",
