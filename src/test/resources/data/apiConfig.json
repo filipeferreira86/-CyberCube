@@ -1,7 +1,0 @@
-{
-  "baseUrl": "https://petstore.swagger.io/v2/",
-  "img": {
-    "validImg": "src/test/resources/data/peixe.jpeg",
-    "invalidImg": "src/test/resources/data/txt.txt"
-  }
-}
